@@ -16,6 +16,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger("dev"));
+app.get('*', function (req, res, next) {
+    setImmediate(function () {
+        return next(new Error('Route does not exist! Use /v1/top to receive top articles from Techzim.'));
+    });
+});
+app.use(function (error, req, res, next) {
+    res.status(404).json({
+        message: error.message,
+        status: 404
+    });
+    next();
+});
 app.get("/v1/top", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let data = yield _1.fetchData();
