@@ -16,6 +16,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger("dev"));
+app.get("/v1/top", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let data = yield _1.fetchData();
+        return res.status(200).json(data);
+    });
+});
 app.get('*', function (req, res, next) {
     setImmediate(function () {
         return next(new Error('Route does not exist! Use /v1/top to receive top articles from Techzim.'));
@@ -27,12 +33,6 @@ app.use(function (error, req, res, next) {
         status: 404
     });
     next();
-});
-app.get("/v1/top", function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let data = yield _1.fetchData();
-        return res.status(200).json(data);
-    });
 });
 app.listen(process.env.PORT || 8000, function () {
     console.log('API is up and running');
