@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const logger = require("morgan");
 const _1 = require(".");
+const cors = require("cors");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger("dev"));
+app.use(cors());
 app.get("/v1/top", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let data = yield _1.fetchData();
