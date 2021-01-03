@@ -22,7 +22,7 @@ function fetchData() {
                 const author = $(el).find(".author-name").text().replace(/\s\s+/g, '');
                 const url = $(el).find("a").attr("href");
                 const heading = $(el).find("a").find("h3").text().replace(/\s\s+/g, '');
-                const description = $(el).find(".tz-theme-ls > p").text().replace(/\s\s+/g, '');
+                const description = $(el).find(".tz-theme-ls > p").text().replace(/\s\s+/g, '').replace('Valentine Muhamba', ' - ').replace('Staff Writer', ' - ').replace('Edwin Chabuka', ' - ').replace('Garikai Dzoma', ' - ');
                 const img = $(el).find("img").attr("src");
                 let data = {
                     id: i,
