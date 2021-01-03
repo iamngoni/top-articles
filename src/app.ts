@@ -1,12 +1,14 @@
 import * as express from "express";
 import * as logger from "morgan";
 import { fetchData } from ".";
+import * as cors from "cors";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(logger("dev"));
+app.use(cors());
 
 app.get("/v1/top", async function (req, res) {
   let data = await fetchData();
