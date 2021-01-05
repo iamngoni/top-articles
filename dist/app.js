@@ -13,6 +13,7 @@ const express = require("express");
 const logger = require("morgan");
 const _1 = require(".");
 const cors = require("cors");
+const c19_1 = require("./c19");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,9 +25,15 @@ app.get("/v1/top", function (req, res) {
         return res.status(200).json(data);
     });
 });
+app.get("/v2/stats/live", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let data = yield c19_1.fetchCovidData();
+        return res.status(200).json(data);
+    });
+});
 app.get('*', function (req, res, next) {
     setImmediate(function () {
-        return next(new Error('Route does not exist! Use /v1/top to receive top articles from Techzim.'));
+        return next(new Error('Route does not exist! Use /v1/top to receive top articles from Techzim Or /v2/stats to get covid19 stats for zimbabwe.'));
     });
 });
 app.use(function (error, req, res, next) {

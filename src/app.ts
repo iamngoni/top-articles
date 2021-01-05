@@ -2,6 +2,7 @@ import * as express from "express";
 import * as logger from "morgan";
 import { fetchData } from ".";
 import * as cors from "cors";
+import { fetchCovidData } from "./c19";
 
 const app = express();
 
@@ -15,9 +16,14 @@ app.get("/v1/top", async function (req, res) {
   return res.status(200).json(data);
 });
 
+app.get("/v2/stats/live", async function (req, res) {
+  let data = await fetchCovidData();
+  return res.status(200).json(data);
+});
+
 app.get('*', function (req, res, next) {
   setImmediate(function () {
-    return next(new Error('Route does not exist! Use /v1/top to receive top articles from Techzim.'));
+    return next(new Error('Route does not exist! Use /v1/top to receive top articles from Techzim Or /v2/stats to get covid19 stats for zimbabwe.'));
   });
 });
 
