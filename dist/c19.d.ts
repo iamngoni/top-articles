@@ -1,5 +1,7 @@
 export declare function fetchCovidData(): Promise<{
-    cases: string;
-    deaths: string;
-    recovered: string;
+    country: string;
+    cases: number;
+    deaths: number;
+    recovered: number;
+    date: string;
 } | undefined>;
