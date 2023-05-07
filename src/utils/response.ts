@@ -1,6 +1,6 @@
-import ApiResponse from "./api-response";
+import { ApiResponse } from "./api-response";
 
-export default function apiResponse<T>(status: boolean = true, data: T, message: string = "Success", issues: any = null): ApiResponse<T> {
+export function apiResponse<T>(status: boolean = true, data: T, message: string = "Success", issues: any = null): ApiResponse<T> {
     return {
         status,
         data,

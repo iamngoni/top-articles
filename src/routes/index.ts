@@ -1,4 +1,4 @@
-import apiResponse from "../utils/response";
+import { apiResponse } from "../utils";
 import * as express from "express";
 
 
