@@ -1,39 +1,18 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const logger = require("morgan");
-const _1 = require(".");
 const cors = require("cors");
-const c19_1 = require("./c19");
+const routes_1 = require("./routes");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger("dev"));
 app.use(cors());
-app.get("/v1/top", function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let data = yield _1.fetchData();
-        return res.status(200).json(data);
-    });
-});
-app.get("/v2/stats/live", function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let data = yield c19_1.fetchCovidData();
-        return res.status(200).json(data);
-    });
-});
+app.use("/api/1.0/articles", routes_1.topArticles);
 app.get('*', function (req, res, next) {
     setImmediate(function () {
-        return next(new Error('Route does not exist! Use /v1/top to receive top articles from Techzim Or /v2/stats to get covid19 stats for zimbabwe.'));
+        return next(new Error('Route does not exist!.'));
     });
 });
 app.use(function (error, req, res, next) {
